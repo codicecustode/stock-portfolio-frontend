@@ -13,16 +13,17 @@ import { localStocks } from "../stocks/stockData";
 
 const ModernPortfolioTable = () => {
   const [stocks, setStocks] = useState<Stock[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   // Fetch data
   const fetchData = async (): Promise<void> => {
     try {
-      
+      setLoading(true);
       const payload = {
         stocks: localStocks.map((s) => ({ symbol: s.symbol })),
       };
-
-      const res = await fetch("https://stock-portfolio-backend-xqnz.onrender.com", {
+      
+      const res = await fetch("https://stock-portfolio-backend-xqnz.onrender.com/api/portfolio", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,6 +49,8 @@ const ModernPortfolioTable = () => {
       setStocks(combinedStockData);
     } catch (err) {
       console.error("Failed to fetch live data:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -285,7 +288,7 @@ const ModernPortfolioTable = () => {
         {/* Header */}
         <div className="mb-6 md:mb-8">
           <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
-            Portfolio Overview
+            Portfolio Overview  {isLoading && <span className="text-sm font-normal text-slate-500 ml-2">Loading...</span>}
           </h1>
           <p className="text-sm md:text-base text-slate-600 mt-1">
             Grouped by sector with real-time performance

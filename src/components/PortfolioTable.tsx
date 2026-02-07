@@ -22,7 +22,7 @@ const ModernPortfolioTable = () => {
         stocks: localStocks.map((s) => ({ symbol: s.symbol })),
       };
 
-      const res = await fetch("http://localhost:5000/api/portfolio", {
+      const res = await fetch("https://stock-portfolio-backend-xqnz.onrender.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

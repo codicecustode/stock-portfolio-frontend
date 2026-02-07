@@ -58,8 +58,8 @@ const ModernPortfolioTable = () => {
     // Initial load on mount
     fetchData();
 
-    // Auto-refresh every 60 seconds (match comment)
-    const interval = setInterval(fetchData, 60000);
+    // Auto-refresh every 15 seconds (match comment)
+    const interval = setInterval(fetchData, 15000);
 
     // Cleanup on unmount
     return () => clearInterval(interval);
